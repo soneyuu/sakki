@@ -1,9 +1,14 @@
 class EntryRepository
-  def save(entry)
-    # なんか保存
+  def initialize
+    @entries = []
   end
 
-  def fetch
-    # なんか取得
+  def save(entry)
+    @entries.push(entry)
+    return @entries.length - 1
+  end
+
+  def fetch(id)
+    @entries[id]
   end
 end
