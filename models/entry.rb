@@ -1,6 +1,25 @@
 class Entry
-  attr_accessor :title
-  attr_accessor :body
-  attr_accessor :posted_at
-  attr_accessor :published
+  COLUMNS = [:id, :title, :body, :posted_at, :published]
+  COLUMNS.each do |column|
+    attr_accessor column
+  end
+
+  def initialize(attrs = {})
+    attrs.each_pair do |key, val|
+      key = key.to_s.to_sym
+      if COLUMNS.include?(key)
+        instance_variable_set("@#{key}", val)
+      end
+    end
+  end
+
+  def body_html
+    pipeline = HTML::Pipeline.new [
+      HTML::Pipeline::MarkdownFilter,
+      HTML::Pipeline::AutolinkFilter
+    ]
+    result = pipeline.call(body)
+
+    result[:output].to_s
+  end
 end

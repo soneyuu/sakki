@@ -19,9 +19,17 @@ class App < Sinatra::Base
     set :views, settings.root + "/views"
   end
 
+  def self.database_config
+    YAML.load_file("config/database.yml")[ENV['RACK_ENV'] || 'development']
+  end
+
+  def self.database
+    @database ||= Mysql2::Client.new(database_config)
+  end
+
   helpers do
     def entry_repository
-      @@entry_repository ||= EntryRepository.new
+      @@entry_repository ||= EntryRepository.new(App.database)
     end
   end
 

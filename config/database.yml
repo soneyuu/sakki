@@ -1,0 +1,5 @@
+development:
+  adapter: mysql2
+  encoding: utf8mb4
+  database: sakki_dev
+  username: root
