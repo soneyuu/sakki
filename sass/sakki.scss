@@ -1,7 +1,8 @@
 html {
   body {
-    ul {
-      display: flex;
+    a::selection {
+      color: white;
+      background: black;
     }
   }
 }

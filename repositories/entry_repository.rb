@@ -26,6 +26,16 @@ class EntryRepository
     return entry
   end
 
+  def recent(limit = 5)
+    query = "SELECT * FROM `entries` ORDER BY `id` DESC LIMIT ?"
+    stmt = @db.prepare(query)
+    res = stmt.execute(limit)
+
+    res.map do |row|
+      entry = Entry.new(row)
+    end
+  end
+
   def each(&block)
     entries = []
     query = "SELECT * FROM `entries`"
