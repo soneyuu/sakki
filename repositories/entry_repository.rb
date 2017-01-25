@@ -32,10 +32,8 @@ class EntryRepository
     res = @db.query(query)
 
     res.each do |row|
-      entry = Entry.new
-      entry.title = row["title"]
-      entry.body = row["body"]
-      entries.push(entry)
+        entry = Entry.new(row)
+        entries.push(entry)
     end
 
     entries.each(&block)

@@ -1,4 +1,4 @@
 ul
-  - entry_repository.each_with_index do |entry, id|
+  - entry_repository.each do |entry|
     li
-      a(href="/entries/#{id}")= entry.title
+      a(href="/entries/#{entry.id}")= entry.title
